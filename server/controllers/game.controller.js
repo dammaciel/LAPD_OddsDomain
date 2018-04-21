@@ -104,7 +104,7 @@ exports.update = (req, res) => {
         .then(game => {
             if (!game) {
                 return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
+                    message: "Game not found with id " + req.params.noteId
                 });
             }
             res.send(game);
@@ -112,11 +112,11 @@ exports.update = (req, res) => {
             if (err.kind === 'ObjectId' || err.name === 'NotFound') {
 
                 return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
+                    message: "Game not found with id " + req.params.noteId
                 });
             }
             return res.status(500).send({
-                message: "Error updating note with id " + req.params.noteId
+                message: "Error updating game with id " + req.params.noteId
             });
         });
 };
