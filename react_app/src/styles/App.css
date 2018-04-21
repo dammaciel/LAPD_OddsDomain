@@ -1,0 +1,113 @@
+@import '~antd/dist/antd.css';
+@import url('https://fonts.googleapis.com/css?family=Gothic+A1:400,900');
+
+body {
+    background-color: grey;
+    font-family: 'Gothic A1', sans-serif;
+}
+
+.gameTableItem, .gameTableHeader {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    padding: 12px 32px;
+    background-color: white;
+}
+
+.gameTableHeader .title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    font-weight: 900;
+    color: #111111;
+    flex: 1;
+    font-size: 1.2rem;
+}
+
+.gameTableHeader .odds div {
+    width: 52px;
+    font-weight: 900;
+    color: #cecece;
+    text-align: center;
+}
+
+.gameTableHeader .odds div:not(:last-child) {
+    margin-right: 12px;
+}
+
+.gameTableItem .time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.gameTableItem .time .hours {
+    font-weight: 900;
+    color: #111111;
+}
+
+.gameTableItem .time .day {
+    font-weight: 300;
+    font-family: inherit;
+    color: #777777;
+    font-size: 0.8rem;
+}
+
+.gameTableItem .scoreInfo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 32px;
+}
+
+.gameTableItem .team {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.gameTableItem .team img {
+    height: 32px;
+    width: 32px;
+    object-fit: cover;
+    margin: 0 12px;
+}
+
+.gameTableItem .team h3 {
+    margin: 0;
+    font-weight: 900;
+    color: #111111;
+    flex: 1;
+}
+
+.gameTableItem .team.away h3 {
+    text-align: right;
+}
+
+.gameTableItem .score {
+    font-weight: 900;
+}
+
+.gameTableItem .odds, .gameTableHeader .odds {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameTableItem .odds div {
+    border: #ededed solid 1px;
+    border-radius: 4px;
+    padding: 6px 10px;
+    color: #777777;
+    font-weight: 900;
+    width: 52px;
+    text-align: center;
+}
+
+.gameTableItem .odds div:not(:last-child) {
+    margin-right: 12px;
+}
