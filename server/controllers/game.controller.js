@@ -77,6 +77,7 @@ exports.findOne = (req, res) => {
 // Update a game identified by the gameId in the request
 exports.update = (req, res) => {
     // Validate Request
+
     if (!req.body.teamHome) {
         return res.status(400).send({
             message: "Home team can not be empty"
@@ -97,23 +98,25 @@ exports.update = (req, res) => {
 
     //Find game and update it with the request body
     Game.findByIdAndUpdate(req.params.gameId, {
+            date: req.body.date,
             score: req.body.score
         }, { new: true })
         .then(game => {
             if (!game) {
                 return res.status(404).send({
-                    message: "Game not found with id" + req.params.gameId
+                    message: "Note not found with id " + req.params.noteId
                 });
             }
             res.send(game);
         }).catch(err => {
             if (err.kind === 'ObjectId' || err.name === 'NotFound') {
+
                 return res.status(404).send({
-                    message: "Game not found with id" + req.params.gameId
+                    message: "Note not found with id " + req.params.noteId
                 });
             }
             return res.status(500).send({
-                message: "Error updating game with id " + req.params.gameId
+                message: "Error updating note with id " + req.params.noteId
             });
         });
 };
