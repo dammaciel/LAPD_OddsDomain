@@ -62,7 +62,7 @@ exports.findOne = (req, res) => {
                 });
             }
             res.send(game);
-        }).cath(err => {
+        }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
                     message: "Game not found with id" + req.params.gameId
@@ -77,10 +77,22 @@ exports.findOne = (req, res) => {
 // Update a game identified by the gameId in the request
 exports.update = (req, res) => {
     // Validate Request
-    if (!req.body.content) {
+    if (!req.body.teamHome) {
         return res.status(400).send({
-            message: "Game content can not be empty"
+            message: "Home team can not be empty"
         });
+    } else if (!req.body.teamAway) {
+        return res.status(400).send({
+            message: "Away team can not be empty"
+        });
+    } else if (!req.body.score) {
+        return res.status(400).send({
+            message: "Score can not be empty"
+        });
+    } else if (!req.body.date) {
+        return res.status(400).send({
+            message: "Date can not be empty"
+        })
     }
 
     //Find game and update it with the request body
@@ -94,7 +106,7 @@ exports.update = (req, res) => {
                 });
             }
             res.send(game);
-        }).cath(err => {
+        }).catch(err => {
             if (err.kind === 'ObjectId' || err.name === 'NotFound') {
                 return res.status(404).send({
                     message: "Game not found with id" + req.params.gameId
@@ -116,7 +128,7 @@ exports.delete = (req, res) => {
                 });
             }
             res.send({ message: "Game deleted successfully!" });
-        }).cath(err => {
+        }).catch(err => {
             if (err.kind === 'ObjectId' || err.name === 'NotFound') {
                 return res.status(404).send({
                     message: "Game not found with id" + req.params.gameId
