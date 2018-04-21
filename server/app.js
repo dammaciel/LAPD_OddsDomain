@@ -46,10 +46,6 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-app.listen(3000, function(req, res) {
-    console.log("Server is listening on port 3000");
-});
-
 mongoose.connect(dbConfig.url)
     .then(() => {
         console.log("Successfully connected to the database");
