@@ -3,15 +3,20 @@ import GameTableItem from './GameTableItem';
 
 class GameTable extends Component
 {
+    changeSelectedGame(index)
+    {
+        this.props.changeSelectedGame(index);
+    }
+
     render()
     {
         const items = this.props.games.map((game, index) =>
         {
-           return (<GameTableItem data={game} key={index}></GameTableItem>) 
+           return (<GameTableItem click={this.changeSelectedGame.bind(this, index)} data={game} key={index}></GameTableItem>) 
         });
 
         return (
-            <div>
+            <div className="gameTable" >
                 <div className="gameTableHeader">
                     <div className="title">
                         Past Games
