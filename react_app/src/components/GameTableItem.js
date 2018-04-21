@@ -24,14 +24,11 @@ class GameTableItem extends Component
     render()
     {
         const data = this.props.data;
-
         let date = moment(this.props.data.date + " " + this.props.data.time, "DD/MM/YYYY HH:mm");
-
         let odds = getOdds(data.odds);
-        console.log(odds);
 
         return (
-            <div className="gameTableItem">
+            <div className="gameTableItem" onClick={this.props.click}>
                 <div className="time">
                     <div className="hours">{date.format('HH:MM')}</div>
                     <div className="day">{date.format('D MMM')}</div>

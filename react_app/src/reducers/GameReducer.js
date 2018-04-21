@@ -1,4 +1,4 @@
-import { ADD_GAMES } from '../actions/gameActions'
+import { ADD_GAMES } from '../actions/GameActions'
 
 export default function gameReducer(state = [], { type, payload }) 
 {

@@ -1,10 +1,132 @@
 @import '~antd/dist/antd.css';
 @import url('https://fonts.googleapis.com/css?family=Gothic+A1:400,900');
 
-body {
-    background-color: grey;
-    font-family: 'Gothic A1', sans-serif;
+#root {
+    height: 100%;
 }
+
+.App {
+    display: flex;
+    font-family: 'Gothic A1', sans-serif;
+    background-color: white;
+    height: 100%;
+}
+
+.gameTable {
+    flex: 1;
+    border: #ededed solid 1px;
+}
+
+/*  Game Details  */
+
+.gameDetails {
+    width: 640px;
+    background-color: #F2F3F4;
+}
+
+.gameDetails .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px;
+    background-color: white;
+}
+
+.gameDetails .league {
+    margin: 0;
+    font-weight: 900;
+    color: #111111;
+    flex: 1;
+}
+
+.gameDetails .matchup {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 12px;
+}
+
+.gameDetails .team {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 192px;
+}
+
+.gameDetails .team img {
+    height: 128px;
+    width: 128px;
+    object-fit: cover;
+}
+
+.gameDetails .team h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #111111;
+    text-align: center;
+}
+
+.gameDetails .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameDetails .time {
+    color: #777777;
+    font-weight: 900;
+}
+
+.gameDetails .time strong {
+    color: #111111;
+}
+
+.gameDetails .score {
+    font-size: 1.5rem;
+    color: #111111;
+    font-weight: bold;
+    margin: 24px 0;
+}
+
+.oddsTable {
+    width: 100%;
+    padding: 32px;
+}
+
+.oddsTable table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.oddsTable table, .oddsTable th, .oddsTable td {
+    border: #ededed solid 1px;
+    background-color: white
+}
+
+.oddsTable tr {
+    height: 40px;
+}
+
+.oddsTable th {
+    color: #777777;
+    font-weight: 900;
+    padding: 0 12px;
+}
+
+.oddsTable td {
+    color: #111111;
+    font-weight: 900;
+    padding: 0 12px;
+}
+
+.oddsTable .centerText {
+    text-align: center;
+}
+
+/*  Game Table  */
 
 .gameTableItem, .gameTableHeader {
     display: flex;
@@ -12,6 +134,12 @@ body {
     height: 64px;
     padding: 12px 32px;
     background-color: white;
+    border-bottom: #ededed solid 1px;
+}
+
+.gameTableItem:hover {
+    cursor: pointer;
+    background-color: #F2F3F4;
 }
 
 .gameTableHeader .title {
