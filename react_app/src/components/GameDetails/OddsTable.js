@@ -5,20 +5,23 @@ class OddsTable extends Component
     render()
     {
         let odds = this.props.odds;
+        let rows;
 
-        let rows = [], i = 0;
-        for(let odd in odds)
+        if(odds === undefined)
+            rows = null;
+        else
         {
-            rows.push(
-            <tr key={i}>
-                <td >{odds[odd].nome}</td>
-                <td className="centerText">{odds[odd][1]}</td>
-                <td className="centerText">{odds[odd].x}</td>
-                <td className="centerText">{odds[odd][2]}</td>
-            </tr>);
-            i++;
+            rows = odds.map((odd, index) => 
+            {
+                return (<tr key={index}>
+                        <td >{odd.oddHouse}</td>
+                        <td className="centerText">{odd.oddHome}</td>
+                        <td className="centerText">{odd.oddTie}</td>
+                        <td className="centerText">{odd.oddAway}</td>
+                    </tr>);
+            });
         }
-
+        
         return(
             <div className="oddsTable">
                 <table>

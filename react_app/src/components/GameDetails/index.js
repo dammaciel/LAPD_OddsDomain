@@ -20,6 +20,7 @@ export default class extends Component
             return(
                 <div className="gameDetails">
                     <Header game={game}></Header>
+                    <OddsTable odds={game.odds}/>
                 </div>
             )
         }

@@ -3,7 +3,7 @@ import '../styles/App.css';
 import GameTable from './GameTable';
 import GameDetails from './GameDetails';
 import { connect } from 'react-redux';
-import { addGames } from '../actions/GameActions';
+import { addGames, addOddsToGame } from '../actions/GameActions';
 import { changeSelectedGame } from '../actions/InterfaceActions';
 import axios from 'axios';
 
@@ -13,7 +13,7 @@ class App extends Component
     {
         return (
             <div className="App">
-                <GameTable games={this.props.games} changeSelectedGame={this.props.changeSelectedGame}></GameTable>
+                <GameTable games={this.props.games} changeSelectedGame={this.props.changeSelectedGame} addOddsToGame={this.props.addOddsToGame}></GameTable>
                 <GameDetails game={this.props.games[this.props.ui.selectedGame]}></GameDetails>
             </div>
         );
@@ -42,6 +42,7 @@ export default connect(
     },
     {
         addGames: addGames,
+        addOddsToGame: addOddsToGame,
         changeSelectedGame: changeSelectedGame
     }
 )(App);

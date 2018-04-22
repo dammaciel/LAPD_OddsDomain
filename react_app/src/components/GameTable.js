@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import GameTableItem from './GameTableItem';
+import axios from 'axios';
 
 class GameTable extends Component
 {
-    changeSelectedGame(index)
+    changeSelectedGame(index, id)
     {
         this.props.changeSelectedGame(index);
+        axios.get('http://localhost:3000/odds/' + id)
+            .then((response) => 
+            {
+                this.props.addOddsToGame({odds: response.data}, index);
+            });
     }
 
     render()
     {
         const items = this.props.games.map((game, index) =>
         {
-           return (<GameTableItem click={this.changeSelectedGame.bind(this, index)} data={game} key={index}></GameTableItem>) 
+           return (<GameTableItem click={this.changeSelectedGame.bind(this, index, game._id)} data={game} key={index}></GameTableItem>) 
         });
 
         return (
@@ -20,17 +26,6 @@ class GameTable extends Component
                 <div className="gameTableHeader">
                     <div className="title">
                         Past Games
-                    </div>
-                    <div className="odds">
-                        <div className="odds-1">
-                            1
-                        </div>
-                        <div className="odds-x">
-                            X
-                        </div>
-                        <div className="odds-2">
-                            2
-                        </div>
                     </div>
                 </div>
                 {items}

@@ -7,7 +7,7 @@ class Header extends Component
     {
         let game = this.props.game;
 
-        let date = moment(game.date, "DD/MM/YYYY");
+        let date = moment(game.date + " " + game.hour, "DD/MM/YYYY HH:mm");
 
         return(
             <div className="header">
