@@ -1,10 +1,10 @@
 const Game = require('../models/game.model.js');
 
+const fs = require('fs');
+
 // Create and Save a new Game
 exports.create = (req, res) => {
-    console.log(req.body);
-
-    if (!req.body.teamHome) {
+    /*if (!req.body.teamHome) {
         return res.status(400).send({
             message: "Home team can not be empty"
         });
@@ -20,24 +20,34 @@ exports.create = (req, res) => {
         return res.status(400).send({
             message: "Date can not be empty"
         })
-    }
+    }*/
 
-    const game = new Game({
-        teamHome: req.body.teamHome,
-        teamAway: req.body.teamAway,
-        score: req.body.score,
-        date: req.body.date
+    fs.readFile('resources/games.json', function(err, data) {
+        if (err) {
+            console.log('Error Reading File with Games', err);
+            res.sendStatus(500);
+        } else {
+            var obj = JSON.parse(data);
+            for (var id = 0; id < obj.total; id++) {
+                const game = new Game({
+                    teamHome: obj.games[id].jogo[1],
+                    teamAway: obj.games[id].jogo[2],
+                    score: "0-0",
+                    date: obj.games[id].date,
+                    hour: obj.games[id].time
+                });
+                game.save()
+                    .then(data => {
+                        res.send(data);
+                    }).catch(err => {
+                        res.status(500).send({
+                            message: err.message || "Some error occurred while creating the Game."
+                        });
+                    });
+                res.end();
+            }
+        }
     });
-    // Save Game in the database
-
-    game.save()
-        .then(data => {
-            res.send(data);
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the Game."
-            });
-        });
 };
 
 // Retrieve and return all Games from the database.
@@ -104,7 +114,7 @@ exports.update = (req, res) => {
         .then(game => {
             if (!game) {
                 return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
+                    message: "Game not found with id " + req.params.noteId
                 });
             }
             res.send(game);
@@ -112,11 +122,11 @@ exports.update = (req, res) => {
             if (err.kind === 'ObjectId' || err.name === 'NotFound') {
 
                 return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
+                    message: "Game not found with id " + req.params.noteId
                 });
             }
             return res.status(500).send({
-                message: "Error updating note with id " + req.params.noteId
+                message: "Error updating game with id " + req.params.noteId
             });
         });
 };
