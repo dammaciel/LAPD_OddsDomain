@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 });
 
-router.get('/refresh', function (req, res) {
+router.get('/refresh', function(req, res) {
     Promise.all([portugalodds.getGames()])
         .then(() => {
             res.sendStatus(200);
@@ -19,13 +19,19 @@ router.get('/refresh', function (req, res) {
         })
 })
 
-router.get('/gameOdds', function (req, res) {
-    fs.readFile('resources/games.json', function (err, data) {
+router.get('/gameOdds', function(req, res) {
+    fs.readFile('resources/games.json', function(err, data) {
         if (err) {
             console.log('Error Reading File with Games', err);
             res.sendStatus(500);
         } else {
-            res.json(JSON.parse(data));
+            obj = JSON.parse(data);
+            for (var id = 0; id < 3; id++) {
+                console.log("data: ", obj.games[id].date);
+                console.log("Home Team", obj.games[id].jogo[1]);
+                console.log("Away Team", obj.games[id].jogo[2]);
+            }
+            //res.json(JSON.parse(data));
         }
     })
 });

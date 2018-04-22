@@ -9,8 +9,8 @@ function getGames() {
             json: true,
             simple: true
         }).then((response) => {
-            return new Promise(function (resolve, reject) {
-                console.log(response);
+            return new Promise(function(resolve, reject) {
+                // console.log(response);
                 fs.writeFile('resources/games.json', JSON.stringify(response), (err) => {
                     if (err) {
                         reject(err);
