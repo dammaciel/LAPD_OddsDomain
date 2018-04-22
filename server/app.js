@@ -6,6 +6,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var dbConfig = require('./config/database.config.js');
 var mongoose = require('mongoose');
+var cors = require('cors');
 
 mongoose.Promise = global.Promise;
 
@@ -18,6 +19,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

@@ -7,15 +7,15 @@ class Header extends Component
     {
         let game = this.props.game;
 
-        let date = moment(game.date + " " + game.time, "DD/MM/YYYY HH:mm");
+        let date = moment(game.date, "DD/MM/YYYY");
 
         return(
             <div className="header">
-                <h2 className="league">{game.liga + " - " + game.pais}</h2>
+                <h2 className="league">League</h2>
                 <div className="matchup">
                     <div className="team">
                         <img src="/logo.png" alt="crest"/>
-                        <h3>{game.jogo[1]}</h3>
+                        <h3>{game.teamHome}</h3>
                     </div>
                     <div className="details">
                         <div className="time">
@@ -28,7 +28,7 @@ class Header extends Component
                     </div>
                     <div className="team">
                         <img src="/logo.png" alt="crest"/>
-                        <h3>{game.jogo[2]}</h3>
+                        <h3>{game.teamAway}</h3>
                     </div>
                 </div>
             </div>

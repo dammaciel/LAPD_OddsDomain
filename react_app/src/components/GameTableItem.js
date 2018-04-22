@@ -24,37 +24,37 @@ class GameTableItem extends Component
     render()
     {
         const data = this.props.data;
-        let date = moment(this.props.data.date + " " + this.props.data.time, "DD/MM/YYYY HH:mm");
-        let odds = getOdds(data.odds);
+        // let date = moment(this.props.data.date + " " + this.props.data.time, "DD/MM/YYYY HH:mm");
+        // let odds = getOdds(data.odds);
 
         return (
             <div className="gameTableItem" onClick={this.props.click}>
                 <div className="time">
-                    <div className="hours">{date.format('HH:MM')}</div>
-                    <div className="day">{date.format('D MMM')}</div>
+                    <div className="hours">00:00</div>
+                    <div className="day">{data.date}</div>
                 </div>
                 <div className="scoreInfo">
                     <div className="team home">
                         <img className="crest" src="/logo.png" alt="teamCrest"/>
-                        <h3 className="name">{data.jogo[1]}</h3>
+                        <h3 className="name">{data.teamHome}</h3>
                     </div>
                     <div className="score">
                         - : -
                     </div>
                     <div className="team away">
-                        <h3 className="name">{data.jogo[2]}</h3>
+                        <h3 className="name">{data.teamAway}</h3>
                         <img className="crest" src="/logo.png" alt="teamCrest"/>
                     </div>
                 </div>
                 <div className="odds">
                     <div className="odds-1">
-                        {odds[0]}
+                        1.00
                     </div>
                     <div className="odds-x">
-                        {odds[1]}
+                        1.00
                     </div>
                     <div className="odds-2">
-                        {odds[2]}
+                        1.00 
                     </div>
                 </div>
             </div>
