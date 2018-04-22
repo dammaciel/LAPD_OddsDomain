@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const GameSchema = mongoose.Schema({
+    apiID: String,
     teamHome: String,
     teamAway: String,
     score: String,
