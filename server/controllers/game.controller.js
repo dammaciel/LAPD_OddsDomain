@@ -33,7 +33,8 @@ exports.create = (req, res) => {
                     teamHome: obj.games[id].jogo[1],
                     teamAway: obj.games[id].jogo[2],
                     score: "0-0",
-                    date: obj.games[id].date
+                    date: obj.games[id].date,
+                    hour: obj.games[id].time
                 });
                 game.save()
                     .then(data => {

@@ -25,13 +25,7 @@ router.get('/gameOdds', function(req, res) {
             console.log('Error Reading File with Games', err);
             res.sendStatus(500);
         } else {
-            obj = JSON.parse(data);
-            for (var id = 0; id < 3; id++) {
-                console.log("data: ", obj.games[id].date);
-                console.log("Home Team", obj.games[id].jogo[1]);
-                console.log("Away Team", obj.games[id].jogo[2]);
-            }
-            //res.json(JSON.parse(data));
+            res.json(JSON.parse(data));
         }
     })
 });
