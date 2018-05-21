@@ -7,9 +7,9 @@ import { addGames, addOddsToGame } from '../actions/GameActions';
 import { changeSelectedGame } from '../actions/InterfaceActions';
 import axios from 'axios';
 
-class App extends Component 
+class App extends Component
 {
-    render() 
+    render()
     {
         return (
             <div className="App">
@@ -25,15 +25,15 @@ class App extends Component
             headers: {
               'Access-Control-Allow-Origin': '*',
             }})
-            .then((response) => 
+            .then((response) =>
             {
-                this.props.addGames(response.data.splice(0, 20));
+                this.props.addGames(response.data.splice(204,224));
             });
     }
 }
 
 export default connect(
-    (state) => 
+    (state) =>
     {
         return {
             games: state.games,

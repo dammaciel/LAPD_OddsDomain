@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const portugalodds = require('../request/portugalodds');
+const thesportsdb = require('../request/thesportsdb');
 const fs = require('fs');
 
 /* GET home page. */
@@ -17,6 +18,24 @@ router.get('/refresh', function(req, res) {
         .catch(() => {
             res.sendStatus(500);
         })
+
+})
+router.get('/refreshteams', function(req, res) {
+    Promise.all([thesportsdb.getLeagues()])
+        .then(() => {
+            res.sendStatus(200);
+        })
+        .catch(() => {
+            res.sendStatus(500);
+        }),
+        Promise.all([thesportsdb.getTeams()])
+        .then(() => {
+            res.sendStatus(200);
+        })
+        .catch(() => {
+            res.sendStatus(500);
+        })
+
 })
 
 router.get('/gameOdds', function(req, res) {

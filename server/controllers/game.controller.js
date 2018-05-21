@@ -13,17 +13,11 @@ exports.create = (req, res) => {
         } else {
             var obj = JSON.parse(data);
             for (var id = 0; id < obj.total; id++) {
-                console.log(obj.games[id].id);
-                console.log("id0:", id);
                 Game.findOne({ apiID: obj.games[id].id }, function(err, doc) {
-                    console.log("id1:", id);
                     id = id - 1;
                     if (err)
                         console.log(err);
                     if (doc === null) {
-                        console.log("criar novo")
-                        console.log("id2", id);
-                        //não existe
                         const game = new Game({
                             apiID: obj.games[id].id,
                             teamHome: obj.games[id].jogo[1],
@@ -49,7 +43,6 @@ exports.create = (req, res) => {
                                 oddTie: obj.games[id].odds.betclic.x,
                                 gameId: game.id
                             });
-                            console.log(odd);
                             odd.save()
                                 .then(data => {
                                     res.send(data);
@@ -68,7 +61,6 @@ exports.create = (req, res) => {
                                 oddTie: obj.games[id].odds.betpt.x,
                                 gameId: game.id
                             });
-                            console.log(odd);
                             odd.save()
                                 .then(data => {
                                     res.send(data);
@@ -86,7 +78,6 @@ exports.create = (req, res) => {
                                 oddTie: obj.games[id].odds.casino.x,
                                 gameId: game.id
                             });
-                            console.log(odd);
                             odd.save()
                                 .then(data => {
                                     res.send(data);
@@ -104,7 +95,6 @@ exports.create = (req, res) => {
                                 oddTie: obj.games[id].odds.placard.x,
                                 gameId: game.id
                             });
-                            console.log(odd);
                             odd.save()
                                 .then(data => {
                                     res.send(data);
@@ -115,11 +105,9 @@ exports.create = (req, res) => {
                                 });
                         }
                         res.end();
-
                     } else {
                         message: "Já existe esse jogo"
                         res.end();
-
                     }
                 });
             }
