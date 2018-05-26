@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
 import GameTable from './GameTable';
-import GameDetails from './GameDetails';
+import SidePanel from './SidePanel';
 import { connect } from 'react-redux';
 import { addGames, addOddsToGame } from '../actions/GameActions';
 import { changeSelectedGame } from '../actions/InterfaceActions';
@@ -13,8 +13,11 @@ class App extends Component
     {
         return (
             <div className="App">
+                <nav className="Navbar">
+                    <h1>OddsDomain</h1>
+                </nav>
                 <GameTable games={this.props.games} changeSelectedGame={this.props.changeSelectedGame} addOddsToGame={this.props.addOddsToGame}></GameTable>
-                <GameDetails game={this.props.games[this.props.ui.selectedGame]}></GameDetails>
+                <SidePanel games={this.props.games} ui={this.props.ui}/>
             </div>
         );
     }
