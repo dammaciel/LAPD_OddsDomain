@@ -1,6 +1,6 @@
 module.exports = (app) => {
 
-    const games = require('../controllers/team.controller.js');
+    const teams = require('../controllers/team.controller.js');
 
     // Create a new Team
     app.post('/teams', teams.create);
@@ -9,7 +9,7 @@ module.exports = (app) => {
     app.get('/teams', teams.findAll);
 
     // Retrieve a single Team with TeamId
-    app.get('/teams/:teamId', teams.findOne);
+    app.get('/teams/:team', teams.findOne);
 
     // Update a Team with TeamId
     app.put('/teams/:teamId', teams.update);

@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema
 
-const teamSchema = mongoose.Schema({
+const TeamSchema = mongoose.Schema({
+    apiID: String,
     name: String,
     shortName: String,
     manager: String,
