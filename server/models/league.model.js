@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema
 
-const leagueSchema = mongoose.Schema({
+const LeagueSchema = mongoose.Schema({
+    apiID: String,
     name: String,
     formedYear: String,
     country: String,

@@ -31,6 +31,8 @@ app.use(bodyParser.json());
 app.use('/', indexRouter);
 require('./routes/games.js')(app);
 require('./routes/odds.js')(app);
+require('./routes/leagues.js')(app);
+require('./routes/team.js')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

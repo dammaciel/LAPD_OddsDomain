@@ -1,4 +1,6 @@
 const rp = require('request-promise');
+const League = require('../models/league.model.js');
+
 const fs = require('fs');
 
 function getLeagues() {
@@ -24,10 +26,46 @@ function getLeagues() {
         })
 }
 
+function getSoccerLeagues() {
+    console.log("Entrando no getSoccerLeagues");
+    fs.readFile('resources/leagues.json', function(err, data) {
+        if (err) {
+            console.log('Error Reading File with Leagues', err);
+            res.sendStatus(500);
+        } else {
+            var obj = JSON.parse(data);
+            for (var id = 0; id < Object.keys(obj.leagues).length; id++) {
+                var apiID = obj.leagues[id].idLeague;
+                var leagueType = obj.leagues[id].strSport;
+                if (leagueType === "Soccer") {
+                    rp({
+                            method: 'GET',
+                            uri: ' https://www.thesportsdb.com/api/v1/json/1/lookupleague.php?id=' + apiID,
+                            json: true,
+                            simple: true
+                        }).then((response) => {
+                            new Promise(function(resolve, reject) {
+                                fs.appendFile('resources/soccerLeagues.json', JSON.stringify(response), (err) => {
+                                    if (err) {
+                                        reject(err);
+                                    } else {
+                                        resolve(response)
+                                    }
+                                })
+                            })
+                        })
+                        .catch((err) => {
+                            return Promise.reject(err);
+                        });
+                }
+            };
+        }
+    });
+}
 
 function getTeams() {
     console.log("Entrando no getTeams");
-    fs.readFile('resources/leagues.json', function(err, data) {
+    fs.readFile('resources/soccerLeagues.json', function(err, data) {
         if (err) {
             console.log('Error Reading File with Leagues', err);
             res.sendStatus(500);
@@ -42,8 +80,7 @@ function getTeams() {
                         simple: true
                     }).then((response) => {
                         new Promise(function(resolve, reject) {
-                            console.log("writing on file");
-                            fs.writeFile('resources/teams.json', JSON.stringify(response), (err) => {
+                            fs.appendFile('resources/teams.json', JSON.stringify(response), (err) => {
                                 if (err) {
                                     reject(err);
                                 } else {
@@ -61,33 +98,7 @@ function getTeams() {
 }
 
 module.exports = {
-        getLeagues,
-        getTeams
-    }
-    /*
-    function getTeams(name) {
-        console.log("Entrando no getTeams");
-        return rp({
-                method: 'GET',
-                uri: 'https://still-reef-29535.herokuapp.com/api/games/',
-                json: true,
-                simple: true
-            }).then((response) => {
-                return new Promise(function(resolve, reject) {
-                    fs.writeFile('resources/teams.json', JSON.stringify(response), (err) => {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            resolve(response)
-                        }
-                    })
-                })
-            })
-            .catch((err) => {
-                return Promise.reject(err);
-            })
-    }
-
-    module.exports = {
-        getTeams
-    }*/
+    getLeagues,
+    getSoccerLeagues,
+    getTeams
+}
