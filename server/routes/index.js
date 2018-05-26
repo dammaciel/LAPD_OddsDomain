@@ -28,6 +28,13 @@ router.get('/refreshteams', function(req, res) {
         .catch(() => {
             res.sendStatus(500);
         }),
+        Promise.all([thesportsdb.getSoccerLeagues()])
+        .then(() => {
+            res.sendStatus(200);
+        })
+        .catch(() => {
+            res.sendStatus(500);
+        }),
         Promise.all([thesportsdb.getTeams()])
         .then(() => {
             res.sendStatus(200);
@@ -35,7 +42,6 @@ router.get('/refreshteams', function(req, res) {
         .catch(() => {
             res.sendStatus(500);
         })
-
 })
 
 router.get('/gameOdds', function(req, res) {
@@ -48,6 +54,5 @@ router.get('/gameOdds', function(req, res) {
         }
     })
 });
-
 
 module.exports = router;
