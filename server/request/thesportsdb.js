@@ -65,22 +65,45 @@ function getSoccerLeagues() {
 
 function getTeams() {
     console.log("Entrando no getTeams");
-    fs.readFile('resources/soccerLeagues.json', function(err, data) {
+    rp({
+            method: 'GET',
+            uri: 'https://www.thesportsdb.com/api/v1/json/1/lookup_all_teams.php?id=4429',
+            json: true,
+            simple: true
+        }).then((response) => {
+            new Promise(function(resolve, reject) {
+                fs.appendFile('resources/teams.json', JSON.stringify(response), (err) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(response)
+                    }
+                })
+            })
+        })
+        .catch((err) => {
+            return Promise.reject(err);
+        })
+}
+/*
+function getPlayer() {
+    console.log("Entrando no getPlayer");
+    fs.readFile('resources/teams.json', function(err, data) {
         if (err) {
-            console.log('Error Reading File with Leagues', err);
+            console.log('Error Reading File with Teams', err);
             res.sendStatus(500);
         } else {
             var obj = JSON.parse(data);
-            for (var id = 0; id < obj.leagues.length; id++) {
-                var leagueName = obj.leagues[id].strLeague;
+            for (var id = 0; id < Object.keys(obj.teams).length; id++) {
+                var teamName = obj.teams[id].strTeam;
                 rp({
                         method: 'GET',
-                        uri: ' https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=' + leagueName,
+                        uri: ' https://www.thesportsdb.com/api/v1/json/1/searchplayers.php?t=' + teamName,
                         json: true,
                         simple: true
                     }).then((response) => {
                         new Promise(function(resolve, reject) {
-                            fs.appendFile('resources/teams.json', JSON.stringify(response), (err) => {
+                            fs.appendFile('resources/player.json', JSON.stringify(response), (err) => {
                                 if (err) {
                                     reject(err);
                                 } else {
@@ -95,10 +118,11 @@ function getTeams() {
             }
         }
     });
-}
+}*/
 
 module.exports = {
     getLeagues,
     getSoccerLeagues,
-    getTeams
+    getTeams,
+    // getPlayer
 }

@@ -1,7 +1,9 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema
 
-const playerSchema = mongoose.Schema({
+const PlayerSchema = mongoose.Schema({
+    apiID: String,
+    idTeam: String,
     name: String,
     nationality: String,
     dataBorn: String,
@@ -10,7 +12,7 @@ const playerSchema = mongoose.Schema({
     signing: String,
     gender: String,
     position: String,
-    hight: String,
+    height: String,
     weight: String,
     profilePic: String, //url
 });
