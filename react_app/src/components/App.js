@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import GameTable from './GameTable';
 import SidePanel from './SidePanel';
 import { connect } from 'react-redux';
 import { addGames, addOddsToGame } from '../actions/GameActions';
 import { addTeams } from '../actions/TeamActions';
-import { changeSelectedGame } from '../actions/InterfaceActions';
+import { changeSelectedGame, changeSelectedTeam } from '../actions/InterfaceActions';
 import axios from 'axios';
-import Search from 'react-search-box';
+import { Typeahead } from 'react-bootstrap-typeahead';
 
 class App extends Component
 {
@@ -17,36 +19,35 @@ class App extends Component
             <div className="App">
                 <nav className="Navbar">
                     <h1>OddsDomain</h1>
-                    <Search
-                        data={ this.state.data }
-                        onChange={ this.handleChange.bind(this) }
-                        placeholder="Search for a string..."
-                        class="search-class"
-                        searchKey="full_name"
-                    />
+                    <div className="search-container">
+                        <Typeahead
+                            onChange={selected => {
+                                this.props.changeSelectedTeam(this.props.teams.findIndex((team) => team.name === selected[0]))
+                            }}
+                            options={this.props.teams.map((team) => team.name)}
+                        />
+                    </div>
                 </nav>
-                <GameTable games={this.props.games} changeSelectedGame={this.props.changeSelectedGame} addOddsToGame={this.props.addOddsToGame}></GameTable>
-                <SidePanel games={this.props.games} ui={this.props.ui}/>
+                <GameTable games={this.props.games} teams={this.props.teams} changeSelectedGame={this.props.changeSelectedGame} addOddsToGame={this.props.addOddsToGame}></GameTable>
+                <SidePanel games={this.props.games} ui={this.props.ui} teams={this.props.teams}/>
             </div>
         );
     }
 
     componentDidMount()
     {
-        axios.get('http://localhost:3000/games', {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-            }})
-            .then((response) =>
-            {
-                this.props.addGames(response.data.splice(204,224));
-            });
+        axios.get('http://localhost:3000/games')
+        .then((response) =>
+        {
+            this.props.addGames(response.data);
+        });
 
         axios.get('http://localhost:3000/teams/')
-        .then((response) => 
+        .then((response) =>
         {
             this.props.addTeams(response.data);
         });
+
     }
 }
 
@@ -63,6 +64,7 @@ export default connect(
         addGames: addGames,
         addOddsToGame: addOddsToGame,
         changeSelectedGame: changeSelectedGame,
-        addTeams: addTeams
+        addTeams: addTeams,
+        changeSelectedTeam: changeSelectedTeam
     }
 )(App);

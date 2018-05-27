@@ -28,6 +28,18 @@
     color: white;
 }
 
+.Navbar .rbt {
+    width: 40%;
+}
+
+.Navbar .search-container {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .gameTable {
     flex: 1;
     border: #ededed solid 1px;
@@ -67,6 +79,7 @@
     z-index: 1;
     position: absolute;
     right: 32px;
+    min-width: 320px;
 }
 
 .teamDetails .header .titles h5, .playerDetails .header h5 {
@@ -163,10 +176,15 @@
     width: 192px;
 }
 
+.team:hover {
+    cursor: pointer;
+}
+
 .gameDetails .team img {
     height: 128px;
     width: 128px;
     object-fit: cover;
+    margin-bottom: 12px;
 }
 
 .gameDetails .team h3 {
@@ -318,6 +336,7 @@
     margin: 0;
     font-weight: 900;
     color: #111111;
+    font-size: 1.2rem;
     flex: 1;
 }
 

@@ -21,7 +21,7 @@ export default function teamReducer(state = [], { type, payload })
         }
         case ADD_TEAMS:
         {
-            return {teams: [...state, payload]}
+            return [...state, ...payload]
         }
         default:
             return state;

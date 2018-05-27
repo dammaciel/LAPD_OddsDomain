@@ -7,7 +7,15 @@ class GameTableItem extends Component
     {
         const data = this.props.data;
         let date = moment(this.props.data.date + " " + this.props.data.hour, "DD/MM/YYYY HH:mm");
-        // let odds = getOdds(data.odds);
+
+        let homeCrest = '/logo.png', awayCrest = '/logo.png';
+        let homeTeam = this.props.teams.find((team) => team.name === data.teamHome);
+        if(homeTeam !== undefined)
+            homeCrest = homeTeam.teamBadge;
+
+        let awayTeam = this.props.teams.find((team) => team.name === data.teamAway);
+        if(awayTeam !== undefined)
+            awayCrest = awayTeam.teamBadge;
 
         return (
             <div className="gameTableItem" onClick={this.props.click}>
@@ -17,7 +25,7 @@ class GameTableItem extends Component
                 </div>
                 <div className="scoreInfo">
                     <div className="team home">
-                        <img className="crest" src="/logo.png" alt="teamCrest"/>
+                        <img className="crest" src={homeCrest} alt="teamCrest"/>
                         <h3 className="name">{data.teamHome}</h3>
                     </div>
                     <div className="score">
@@ -25,7 +33,7 @@ class GameTableItem extends Component
                     </div>
                     <div className="team away">
                         <h3 className="name">{data.teamAway}</h3>
-                        <img className="crest" src="/logo.png" alt="teamCrest"/>
+                        <img className="crest" src={awayCrest} alt="teamCrest"/>
                     </div>
                 </div>
             </div>

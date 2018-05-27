@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeSidePanel, changeSelectedPlayerInfo } from '../actions/InterfaceActions';
+import { changeSelectedPlayer } from '../actions/InterfaceActions';
 
 class TeamDetails extends Component
 {
     clickOnPlayer()
     {
-        this.props.changeSidePanel('player');
         this.props.changeSelectedPlayerInfo(
             {
                 name: 'Rui Patricio',
@@ -27,11 +26,48 @@ class TeamDetails extends Component
     render()
     {
         let team = this.props.team;
-        if(team === null)
+        if(team === null || team === undefined)
             return (
                 <div></div>
             );
         else
+        {
+            let manager = null;
+            if(this.props.team.manager)
+                manager = (
+                <div className="infoItem">
+                    <div className="label">Manager</div>
+                    <div className="item">{this.props.team.manager}</div>
+                </div>);
+
+            let stadium = null;
+            if(this.props.team.stadium)
+                stadium = (
+                <div className="infoItem">
+                    <div className="label">Stadium</div>
+                    <div className="item">{this.props.team.stadium}</div>
+                </div>);
+
+            let website = null;
+            if(this.props.team.website)
+                website = (
+                <div className="infoItem">
+                    <div className="label">Website</div>
+                    <a className="item" href={`http://${this.props.team.website}`}>{this.props.team.website}</a>
+                </div>);
+
+            let roster = null;
+            if(this.props.team.roster)
+                roster = (
+                <div className="infoItem">
+                    <div className="label">Roster</div>
+                    <ul className="item">
+                        <li onClick={this.clickOnPlayer.bind(this)}>1. Rui Patricio</li>
+                        <li>4. Sebastian Coates</li>
+                        <li>5. Fábio Coentrão</li>
+                    </ul>
+                </div>);
+
             return(
                 <div className="teamDetails">
                     <div className="header">
@@ -42,35 +78,19 @@ class TeamDetails extends Component
                         </div>
                     </div>
                     <div className="info">
-                        <div className="infoItem">
-                            <div className="label">Manager</div>
-                            <div className="item">{this.props.team.manager}</div>
-                        </div>
-                        <div className="infoItem">
-                            <div className="label">Stadium</div>
-                            <div className="item">{this.props.team.stadium}</div>
-                        </div>
-                        <div className="infoItem">
-                            <div className="label">Website</div>
-                            <a className="item" href={`http://${this.props.team.website}`}>{this.props.team.website}</a>
-                        </div>
-                        <div className="infoItem">
-                            <div className="label">Roster</div>
-                            <ul className="item">
-                                <li onClick={this.clickOnPlayer.bind(this)}>1. Rui Patricio</li>
-                                <li>4. Sebastian Coates</li>
-                                <li>5. Fábio Coentrão</li>
-                            </ul>
-                        </div>
+                        {manager}
+                        {stadium}
+                        {website}
+                        {roster}
                     </div>
                 </div>
             );
+        }
     }
 };
 
 export default connect(null,
     {
-        changeSidePanel: changeSidePanel,
-        changeSelectedPlayerInfo: changeSelectedPlayerInfo
+        changeSelectedPlayer: changeSelectedPlayer
     }
 )(TeamDetails);

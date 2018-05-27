@@ -17,7 +17,7 @@ class SidePanel extends Component
             case 'team':
                 return (
                     <div className="sidePanel" >
-                        <TeamDetails team={this.props.ui.selectedTeam}></TeamDetails>
+                        <TeamDetails team={this.props.teams[this.props.ui.selectedTeam]}></TeamDetails>
                     </div>
                 );
             case 'player':

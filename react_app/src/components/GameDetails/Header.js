@@ -1,27 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeSidePanel, changeSelectedTeamInfo } from '../../actions/InterfaceActions';
+import { changeSelectedTeam } from '../../actions/InterfaceActions';
 import moment from 'moment';
 
 class Header extends Component
 {
-    clickOnTeam(teamName)
+    clickOnTeam(teamId)
     {
-        this.props.changeSidePanel('team');
+        this.props.changeSelectedTeam(teamId);
     }
 
     render()
     {
         let game = this.props.game;
-
         let date = moment(game.date + " " + game.hour, "DD/MM/YYYY HH:mm");
+        let homeCrest = '/logo.png', awayCrest = '/logo.png';
+        
+        let homeTeam = this.props.teams.findIndex((team) => team.name === game.teamHome)
+        if(this.props.teams[homeTeam] !== undefined)
+            homeCrest = this.props.teams[homeTeam].teamBadge;
+
+        let awayTeam = this.props.teams.findIndex((team) => team.name === game.teamAway)
+        if(this.props.teams[awayTeam] !== undefined)
+            awayCrest = this.props.teams[awayTeam].teamBadge;
 
         return(
             <div className="header">
-                <h2 className="league">League</h2>
+                <h2 className="league">World Cup</h2>
                 <div className="matchup">
-                    <div className="team" onClick={this.clickOnTeam.bind(this, game.teamHome)}>
-                        <img src="/logo.png" alt="crest"/>
+                    <div className="team" onClick={this.clickOnTeam.bind(this, homeTeam)}>
+                        <img src={homeCrest} alt="crest"/>
                         <h3>{game.teamHome}</h3>
                     </div>
                     <div className="details">
@@ -33,8 +41,8 @@ class Header extends Component
                             - : -
                         </div>
                     </div>
-                    <div className="team" onClick={this.clickOnTeam.bind(this, game.teamAway)}>
-                        <img src="/logo.png" alt="crest"/>
+                    <div className="team" onClick={this.clickOnTeam.bind(this, awayTeam)}>
+                        <img src={awayCrest} alt="crest"/>
                         <h3>{game.teamAway}</h3>
                     </div>
                 </div>
@@ -43,9 +51,14 @@ class Header extends Component
     }
 }
 
-export default connect(null,
+export default connect(
+    (state) =>
     {
-        changeSidePanel: changeSidePanel,
-        changeSelectedTeamInfo: changeSelectedTeamInfo
+        return {
+            teams: state.teams
+        };
+    },
+    {
+        changeSelectedTeam: changeSelectedTeam
     }
 )(Header);

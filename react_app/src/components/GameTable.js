@@ -18,14 +18,14 @@ class GameTable extends Component
     {
         const items = this.props.games.map((game, index) =>
         {
-           return (<GameTableItem click={this.changeSelectedGame.bind(this, index, game._id)} data={game} key={index}></GameTableItem>) 
+           return (<GameTableItem teams={this.props.teams} click={this.changeSelectedGame.bind(this, index, game._id)} data={game} key={index}></GameTableItem>) 
         });
 
         return (
             <div className="gameTable" >
                 <div className="gameTableHeader">
                     <div className="title">
-                        Past Games
+                        World Cup Games
                     </div>
                 </div>
                 {items}
