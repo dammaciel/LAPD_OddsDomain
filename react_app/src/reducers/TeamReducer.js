@@ -15,7 +15,7 @@ export default function teamReducer(state = [], { type, payload })
 
                 return {
                     ...item,
-                    players: payload.players
+                    roster: payload.players
                 };
             });
         }

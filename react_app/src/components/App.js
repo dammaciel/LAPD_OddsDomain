@@ -6,7 +6,7 @@ import GameTable from './GameTable';
 import SidePanel from './SidePanel';
 import { connect } from 'react-redux';
 import { addGames, addOddsToGame } from '../actions/GameActions';
-import { addTeams } from '../actions/TeamActions';
+import { addTeams, addPlayersToTeam } from '../actions/TeamActions';
 import { changeSelectedGame, changeSelectedTeam } from '../actions/InterfaceActions';
 import axios from 'axios';
 import { Typeahead } from 'react-bootstrap-typeahead';
@@ -22,7 +22,16 @@ class App extends Component
                     <div className="search-container">
                         <Typeahead
                             onChange={selected => {
-                                this.props.changeSelectedTeam(this.props.teams.findIndex((team) => team.name === selected[0]))
+                                let teamId = this.props.teams.findIndex((team) => team.name === selected[0]);
+                                if(teamId !== -1)
+                                {
+                                    this.props.changeSelectedTeam(teamId)
+                                    axios.get(`http://localhost:3000/teams/${this.props.teams[teamId].name}/players`)
+                                        .then((response) =>
+                                        {
+                                            this.props.addPlayersToTeam(response.data, teamId);
+                                        });
+                                }
                             }}
                             options={this.props.teams.map((team) => team.name)}
                         />
@@ -65,6 +74,7 @@ export default connect(
         addOddsToGame: addOddsToGame,
         changeSelectedGame: changeSelectedGame,
         addTeams: addTeams,
-        changeSelectedTeam: changeSelectedTeam
+        changeSelectedTeam: changeSelectedTeam,
+        addPlayersToTeam: addPlayersToTeam
     }
 )(App);

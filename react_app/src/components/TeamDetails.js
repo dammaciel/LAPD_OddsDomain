@@ -4,23 +4,9 @@ import { changeSelectedPlayer } from '../actions/InterfaceActions';
 
 class TeamDetails extends Component
 {
-    clickOnPlayer()
+    clickOnPlayer(id)
     {
-        this.props.changeSelectedPlayerInfo(
-            {
-                name: 'Rui Patricio',
-                nationality: 'Portugal',
-                dataBorn: '01/01/0001',
-                team: 'Sporting CP',
-                description: '...',
-                signing: '...',
-                gender: 'Male',
-                position: 'Goalkeeper',
-                height: '1,91m',
-                weight: '81 Kg',
-                profilePic: 'http://img.fifa.com/images/fcc/2017/players/prt-3/269768.png'
-            }
-        );
+        this.props.changeSelectedPlayer(id);
     }
 
     render()
@@ -58,15 +44,16 @@ class TeamDetails extends Component
 
             let roster = null;
             if(this.props.team.roster)
+            {
+                let players = this.props.team.roster.map((player, index) => (<li onClick={this.clickOnPlayer.bind(this, index)} key={index}>{player.name}</li>))
                 roster = (
                 <div className="infoItem">
                     <div className="label">Roster</div>
                     <ul className="item">
-                        <li onClick={this.clickOnPlayer.bind(this)}>1. Rui Patricio</li>
-                        <li>4. Sebastian Coates</li>
-                        <li>5. Fábio Coentrão</li>
+                        {players}
                     </ul>
                 </div>);
+            }
 
             return(
                 <div className="teamDetails">
