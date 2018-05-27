@@ -1,8 +1,8 @@
 import { 
     CHANGE_SELECTED_GAME, 
     CHANGE_SIDE_PANEL, 
-    ADD_SELECTED_TEAM_INFO,
-    ADD_SELECTED_PLAYER_INFO } from '../actions/InterfaceActions';
+    CHANGE_SELECTED_TEAM_INFO,
+    CHANGE_SELECTED_PLAYER_INFO } from '../actions/InterfaceActions';
 
 const defaultState = {
     selectedGame: null,
@@ -23,11 +23,11 @@ export default function interfaceReducer(state = defaultState, { type, payload }
         {
             return {...state, sidePanel: payload }
         }
-        case ADD_SELECTED_TEAM_INFO:
+        case CHANGE_SELECTED_TEAM_INFO:
         {
             return {...state, selectedTeam: payload}
         }
-        case ADD_SELECTED_PLAYER_INFO:
+        case CHANGE_SELECTED_PLAYER_INFO:
         {
             return {...state, selectedPlayer: payload}
         }

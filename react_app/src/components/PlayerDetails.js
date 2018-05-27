@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeSidePanel, addSelectedTeamInfo } from '../actions/InterfaceActions';
+import { changeSidePanel, changeSelectedTeamInfo } from '../actions/InterfaceActions';
 
 class PlayerDetails extends Component
 {
     clickOnTeam(id)
     {
         this.props.changeSidePanel('team');
-        this.props.addSelectedTeamInfo(
+        this.props.changeSelectedTeamInfo(
             {
                 name: 'Sporting CP',
                 shortName: 'SCP',
@@ -63,6 +63,6 @@ class PlayerDetails extends Component
 export default connect(null,
     {
         changeSidePanel: changeSidePanel,
-        addSelectedTeamInfo: addSelectedTeamInfo
+        changeSelectedTeamInfo: changeSelectedTeamInfo
     }
 )(PlayerDetails);

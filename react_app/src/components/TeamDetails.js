@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeSidePanel, addSelectedPlayerInfo } from '../actions/InterfaceActions';
+import { changeSidePanel, changeSelectedPlayerInfo } from '../actions/InterfaceActions';
 
 class TeamDetails extends Component
 {
     clickOnPlayer()
     {
         this.props.changeSidePanel('player');
-        this.props.addSelectedPlayerInfo(
+        this.props.changeSelectedPlayerInfo(
             {
                 name: 'Rui Patricio',
                 nationality: 'Portugal',
@@ -38,7 +38,7 @@ class TeamDetails extends Component
                         <img src={this.props.team.teamBadge} alt="Team Badge"/>
                         <div className="titles">
                             <h1>{this.props.team.name}</h1>
-                            <h5>{this.props.team.shortName} - {this.props.team.country}</h5>
+                            <h5>{this.props.team.country}</h5>
                         </div>
                     </div>
                     <div className="info">
@@ -52,7 +52,7 @@ class TeamDetails extends Component
                         </div>
                         <div className="infoItem">
                             <div className="label">Website</div>
-                            <a className="item" href={this.props.team.website}>{this.props.team.website}</a>
+                            <a className="item" href={`http://${this.props.team.website}`}>{this.props.team.website}</a>
                         </div>
                         <div className="infoItem">
                             <div className="label">Roster</div>
@@ -71,6 +71,6 @@ class TeamDetails extends Component
 export default connect(null,
     {
         changeSidePanel: changeSidePanel,
-        addSelectedPlayerInfo: addSelectedPlayerInfo
+        changeSelectedPlayerInfo: changeSelectedPlayerInfo
     }
 )(TeamDetails);

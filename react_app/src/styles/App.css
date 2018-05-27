@@ -1,9 +1,6 @@
 @import '~antd/dist/antd.css';
 @import url('https://fonts.googleapis.com/css?family=Gothic+A1:400,900');
 
-#root {
-}
-
 .App {
     display: flex;
     font-family: 'Gothic A1', sans-serif;
@@ -87,6 +84,7 @@
 
 .playerDetails .header img {
     height: 360px;
+    border-radius: 12px;
 }
 
 .playerDetails .header {
