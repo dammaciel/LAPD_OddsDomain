@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
 const portugalodds = require('../request/portugalodds');
 const thesportsdb = require('../request/thesportsdb');
 const fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.json({ "message": "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes." });
-
+    res.sendFile(path.join(__dirname + 'index.html'));
 });
 
 router.get('/refresh', function(req, res) {

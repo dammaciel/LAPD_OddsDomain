@@ -7,22 +7,11 @@ export default class extends Component
 {
     render()
     {
-        let game = this.props.game;
-        if(game === undefined)
-        {
-            return (
-                <div className="gameDetails">
-                </div>
-            );
-        }
-        else
-        {
-            return(
-                <div className="gameDetails">
-                    <Header game={game}></Header>
-                    <OddsTable odds={game.odds}/>
-                </div>
-            )
-        }
+        return(
+            <div className="gameDetails">
+                <Header game={this.props.game}></Header>
+                <OddsTable odds={this.props.game.odds}/>
+            </div>
+        )
     }
 };
