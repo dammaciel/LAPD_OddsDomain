@@ -18,96 +18,98 @@ exports.create = (req, res) => {
                     if (err)
                         console.log(err);
                     if (doc === null) {
-                        const game = new Game({
-                            apiID: obj.games[id].id,
-                            teamHome: obj.games[id].jogo[1],
-                            teamAway: obj.games[id].jogo[2],
-                            score: "0-0",
-                            date: obj.games[id].date,
-                            hour: obj.games[id].time
-                        });
-                        game.save()
-                            .then(data => {
-                                res.send(data);
-                            }).catch(err => {
-                                res.status(500).send({
-                                    message: err.message || "Some error occurred while creating the Game."
-                                });
+                        if (obj.games[id].liga == "Camp. do Mundo") {
+                            const game = new Game({
+                                apiID: obj.games[id].id,
+                                teamHome: obj.games[id].jogo[1],
+                                teamAway: obj.games[id].jogo[2],
+                                score: "0-0",
+                                date: obj.games[id].date,
+                                hour: obj.games[id].time
                             });
-
-                        if (obj.games[id].odds.betclic) {
-                            const odd = new Odd({
-                                oddHouse: obj.games[id].odds.betclic.nome,
-                                oddHome: obj.games[id].odds.betclic[1],
-                                oddAway: obj.games[id].odds.betclic[2],
-                                oddTie: obj.games[id].odds.betclic.x,
-                                gameId: game.id
-                            });
-                            odd.save()
+                            game.save()
                                 .then(data => {
                                     res.send(data);
                                 }).catch(err => {
                                     res.status(500).send({
-                                        message: err.message || "Some error occurred while creating the odd."
+                                        message: err.message || "Some error occurred while creating the Game."
                                     });
                                 });
 
-                        }
-                        if (obj.games[id].odds.betpt) {
-                            const odd = new Odd({
-                                oddHouse: obj.games[id].odds.betpt.nome,
-                                oddHome: obj.games[id].odds.betpt[1],
-                                oddAway: obj.games[id].odds.betpt[2],
-                                oddTie: obj.games[id].odds.betpt.x,
-                                gameId: game.id
-                            });
-                            odd.save()
-                                .then(data => {
-                                    res.send(data);
-                                }).catch(err => {
-                                    res.status(500).send({
-                                        message: err.message || "Some error occurred while creating the odd."
-                                    });
+                            if (obj.games[id].odds.betclic) {
+                                const odd = new Odd({
+                                    oddHouse: obj.games[id].odds.betclic.nome,
+                                    oddHome: obj.games[id].odds.betclic[1],
+                                    oddAway: obj.games[id].odds.betclic[2],
+                                    oddTie: obj.games[id].odds.betclic.x,
+                                    gameId: game.id
                                 });
-                        }
-                        if (obj.games[id].odds.casino) {
-                            const odd = new Odd({
-                                oddHouse: obj.games[id].odds.casino.nome,
-                                oddHome: obj.games[id].odds.casino[1],
-                                oddAway: obj.games[id].odds.casino[2],
-                                oddTie: obj.games[id].odds.casino.x,
-                                gameId: game.id
-                            });
-                            odd.save()
-                                .then(data => {
-                                    res.send(data);
-                                }).catch(err => {
-                                    res.status(500).send({
-                                        message: err.message || "Some error occurred while creating the odd."
+                                odd.save()
+                                    .then(data => {
+                                        res.send(data);
+                                    }).catch(err => {
+                                        res.status(500).send({
+                                            message: err.message || "Some error occurred while creating the odd."
+                                        });
                                     });
+
+                            }
+                            if (obj.games[id].odds.betpt) {
+                                const odd = new Odd({
+                                    oddHouse: obj.games[id].odds.betpt.nome,
+                                    oddHome: obj.games[id].odds.betpt[1],
+                                    oddAway: obj.games[id].odds.betpt[2],
+                                    oddTie: obj.games[id].odds.betpt.x,
+                                    gameId: game.id
                                 });
-                        }
-                        if (obj.games[id].odds.placard) {
-                            const odd = new Odd({
-                                oddHouse: obj.games[id].odds.placard.nome,
-                                oddHome: obj.games[id].odds.placard[1],
-                                oddAway: obj.games[id].odds.placard[2],
-                                oddTie: obj.games[id].odds.placard.x,
-                                gameId: game.id
-                            });
-                            odd.save()
-                                .then(data => {
-                                    res.send(data);
-                                }).catch(err => {
-                                    res.status(500).send({
-                                        message: err.message || "Some error occurred while creating the odd."
+                                odd.save()
+                                    .then(data => {
+                                        res.send(data);
+                                    }).catch(err => {
+                                        res.status(500).send({
+                                            message: err.message || "Some error occurred while creating the odd."
+                                        });
                                     });
+                            }
+                            if (obj.games[id].odds.casino) {
+                                const odd = new Odd({
+                                    oddHouse: obj.games[id].odds.casino.nome,
+                                    oddHome: obj.games[id].odds.casino[1],
+                                    oddAway: obj.games[id].odds.casino[2],
+                                    oddTie: obj.games[id].odds.casino.x,
+                                    gameId: game.id
                                 });
+                                odd.save()
+                                    .then(data => {
+                                        res.send(data);
+                                    }).catch(err => {
+                                        res.status(500).send({
+                                            message: err.message || "Some error occurred while creating the odd."
+                                        });
+                                    });
+                            }
+                            if (obj.games[id].odds.placard) {
+                                const odd = new Odd({
+                                    oddHouse: obj.games[id].odds.placard.nome,
+                                    oddHome: obj.games[id].odds.placard[1],
+                                    oddAway: obj.games[id].odds.placard[2],
+                                    oddTie: obj.games[id].odds.placard.x,
+                                    gameId: game.id
+                                });
+                                odd.save()
+                                    .then(data => {
+                                        res.send(data);
+                                    }).catch(err => {
+                                        res.status(500).send({
+                                            message: err.message || "Some error occurred while creating the odd."
+                                        });
+                                    });
+                            }
+                            res.end();
+                        } else {
+                            message: "Já existe esse jogo"
+                            res.end();
                         }
-                        res.end();
-                    } else {
-                        message: "Já existe esse jogo"
-                        res.end();
                     }
                 });
             }
