@@ -42,6 +42,14 @@ router.get('/refreshteams', function(req, res) {
         .catch(() => {
             res.sendStatus(500);
         })
+        /*Promise.all([thesportsdb.getPlayer()])
+        .then(() => {
+            res.sendStatus(200);
+        })
+        .catch(() => {
+            res.sendStatus(500);
+        })*/
+
 })
 
 router.get('/gameOdds', function(req, res) {
