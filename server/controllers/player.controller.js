@@ -11,19 +11,19 @@ exports.create = (req, res) => {
             var obj = JSON.parse(data);
             for (var id = 0; id < Object.keys(obj.player).length; id++) {
                 const player = new Player({
-                    apiID: obj.player[1].idPlayer,
-                    idTeam: obj.player[1].idTeam,
-                    name: obj.player[1].strPlayer,
-                    nationality: obj.player[1].strNationality,
-                    dataBorn: obj.player[1].dateBorn,
-                    team: obj.player[1].strTeam,
-                    description: obj.player[1].strDescriptionEN,
-                    signing: obj.player[1].strSigning,
-                    gender: obj.player[1].strGender,
-                    position: obj.player[1].strPosition,
-                    height: obj.player[1].strHeight,
-                    weight: obj.player[1].strWeight,
-                    profilePic: obj.player[1].strThumb, //url
+                    apiID: obj.player[id].idPlayer,
+                    idTeam: obj.player[id].idTeam,
+                    name: obj.player[id].strPlayer,
+                    nationality: obj.player[id].strNationality,
+                    dataBorn: obj.player[id].dateBorn,
+                    team: obj.player[id].strTeam,
+                    description: obj.player[id].strDescriptionEN,
+                    signing: obj.player[id].strSigning,
+                    gender: obj.player[id].strGender,
+                    position: obj.player[id].strPosition,
+                    height: obj.player[id].strHeight,
+                    weight: obj.player[id].strWeight,
+                    profilePic: obj.player[id].strThumb, //url
                 });
                 console.log(player);
                 player.save()

@@ -16,4 +16,7 @@ module.exports = (app) => {
 
     // Delete a Team with TeamId
     app.delete('/teams/:teamId', teams.delete);
+
+    // Retrieve all Team Players
+    app.get('/teams/:team/players', teams.findAllPlayers);
 };

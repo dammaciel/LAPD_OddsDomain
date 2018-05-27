@@ -1,4 +1,5 @@
 const Team = require('../models/team.model.js');
+const Player = require('../models/player.model.js');
 
 const fs = require('fs');
 
@@ -51,16 +52,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    Team.find({ name: req.params.team }, {
-            include: [{
-                model: Player,
-                as: 'players',
-                required: false,
-                where: {
-                    team: req.query.team
-                }
-            }]
-        })
+    Team.findOne({ name: req.params.team })
         .then(team => {
             if (!team) {
                 return res.status(404).send({
@@ -125,6 +117,17 @@ exports.delete = (req, res) => {
             }
             return res.status(500).send({
                 message: "Could not delete team with id " + req.params.teamId
+            });
+        });
+};
+
+exports.findAllPlayers = (req, res) => {
+    Player.find({ team: req.params.team })
+        .then(players => {
+            res.send(players);
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving players."
             });
         });
 };
